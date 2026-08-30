@@ -1,4 +1,4 @@
-# 🚀 DSA Journey — Day 3: Arrays & Searching
+# 🚀 DSA Journey — Day 4: Arrays & Searching
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
@@ -123,4 +123,4 @@ Each file contains a complete C++ implementation with comments and output.
 
 Solve DSA problems consistently, build strong fundamentals, and prepare for **coding interviews** and **placements** one day at a time.
 
-**Day 3 Complete ✅**
+**Day 4 Complete ✅**
