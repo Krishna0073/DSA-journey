@@ -1,96 +1,78 @@
-# 🚀 DSA Journey — Day 6: Arrays & Searching
+# 🚀 DSA Journey — Day 7: Linked Lists
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
 ---
 
-# 📌 Topic: Array Operations, Sorting & Searching
+# 📌 Topic: Linked Lists
 
 **Language:** C++
 **Category:** DSA Fundamentals
 
 ### 📝 What I Practiced
 
-* Array Traversal
-* Array Insertion
-* Array Deletion
-* Bubble Sort
-* Insertion Sort
-* Selection Sort
-* Linear Search
-* Binary Search
-* Merge Two Sorted Arrays
+* Linked List Basics
+* Creating Nodes
+* Node Traversal
+* Connecting Nodes
+* Head & Tail
+* Pointers in Linked Lists
 
 ---
 
 # ⚡ Time & Space Complexity
 
-| Algorithm           | Time Complexity      | Space Complexity |
-| ------------------- | -------------------- | ---------------- |
-| Array Traversal     | O(n)                 | O(1)             |
-| Array Insertion     | O(n)                 | O(1)             |
-| Array Deletion      | O(n)                 | O(1)             |
-| Bubble Sort         | O(n²) *(Best: O(n))* | O(1)             |
-| Insertion Sort      | O(n²) *(Best: O(n))* | O(1)             |
-| Selection Sort      | O(n²)                | O(1)             |
-| Linear Search       | O(n) *(Best: O(1))*  | O(1)             |
-| Binary Search       | O(log n)             | O(1)             |
-| Merge Sorted Arrays | O(n + m)             | O(n + m)         |
+| Algorithm             | Time Complexity | Space Complexity |
+| --------------------- | --------------- | ---------------- |
+| Node Creation         | O(1)            | O(1)             |
+| Linked List Traversal | O(n)            | O(1)             |
+| Insert at Beginning   | O(1)            | O(1)             |
+| Insert at End         | O(n)            | O(1)             |
+| Delete a Node         | O(n)            | O(1)             |
 
 ---
 
 # 💡 Concepts Learned
 
-### 1. Array Traversal
+### 1. Linked List
 
-Visit every element of an array exactly once using a loop.
+A linear data structure made up of nodes where each node stores data and a pointer to the next node.
 
-### 2. Array Insertion
+### 2. Node
 
-Insert a new element at a specific position by shifting elements to the right.
+A node contains data and the address of the next node.
 
-### 3. Array Deletion
+### 3. Node Creation
 
-Remove an element and shift the remaining elements to the left.
+Creating nodes dynamically using pointers and the `new` keyword.
 
-### 4. Bubble Sort
+### 4. Node Traversal
 
-Repeatedly compares adjacent elements and swaps them until the array becomes sorted.
+Visiting each node by following the `next` pointer until `nullptr` is reached.
 
-### 5. Insertion Sort
+### 5. Connecting Nodes
 
-Builds a sorted array by inserting each element into its correct position.
+Connecting nodes by storing the address of the next node inside the `next` pointer.
 
-### 6. Selection Sort
+### 6. Head & Tail
 
-Finds the minimum element and places it at the beginning in every pass.
+The head points to the first node, while the tail represents the last node of the linked list.
 
-### 7. Linear Search
+### 7. Pointers in Linked Lists
 
-Checks every element sequentially until the target is found.
-
-### 8. Binary Search
-
-Searches a **sorted array** by repeatedly dividing the search space in half.
-
-### 9. Merge Two Sorted Arrays
-
-Combines two sorted arrays into one sorted array using the two-pointer technique.
+Using pointers to store node addresses and move through the linked list.
 
 ---
 
 # 📂 Files Included
 
 ```text
-01-Traversal.cpp
-02-Insertion.cpp
-03-Deletion.cpp
-04-BubbleSort.cpp
-05-InsertionSort.cpp
-06-SelectionSort.cpp
-07-LinearSearch.cpp
-08-BinarySearch.cpp
-09-MergeSortedArrays.cpp
+01-CreateNode.cpp
+02-Traversal.cpp
+03-ConnectNodes.cpp
+04-InsertAtBeginning.cpp
+05-InsertAtEnd.cpp
+06-DeleteNode.cpp
 ```
 
 Each file contains a complete C++ implementation with comments and output.
@@ -99,13 +81,13 @@ Each file contains a complete C++ implementation with comments and output.
 
 # 📚 Concepts Practiced
 
-* Arrays
-* Time & Space Complexity
-* Nested Loops
-* Searching Algorithms
-* Sorting Algorithms
-* Two Pointer Technique
-* Index Manipulation
+* Linked Lists
+* Nodes
+* Pointers
+* Dynamic Memory Allocation
+* Head & Tail
+* Node Traversal
+* Pointer Manipulation
 
 ---
 
@@ -116,6 +98,7 @@ Each file contains a complete C++ implementation with comments and output.
 | Day 1     | Two Sum                         | ✅ Completed     |
 | Day 2     | C++ STL                         | ✅ Completed     |
 | **Day 3** | **Arrays, Sorting & Searching** | **✅ Completed** |
+| **Day 7** | **Linked Lists**                | **🚀 Started**  |
 
 ---
 
@@ -123,4 +106,4 @@ Each file contains a complete C++ implementation with comments and output.
 
 Solve DSA problems consistently, build strong fundamentals, and prepare for **coding interviews** and **placements** one day at a time.
 
-**Day 4 Complete ✅**
+**Day 7 Started 🚀**
