@@ -1,66 +1,141 @@
-# 🚀 DSA Journey — Day 7: Linked Lists
+# 🚀 DSA Journey — Day 8: Linked List Insertion & Deletion
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
 ---
 
-# 📌 Topic: Linked Lists
+# 📌 Topic: Linked List — Insertion & Deletion
 
 **Language:** C++
 **Category:** DSA Fundamentals
 
 ### 📝 What I Practiced
 
-* Linked List Basics
-* Creating Nodes
-* Node Traversal
-* Connecting Nodes
-* Head & Tail
-* Pointers in Linked Lists
+* Linked List Insertion
+* Insertion at Beginning
+* Insertion at End
+* Insertion at a Specific Position
+* Linked List Deletion
+* Deletion from Beginning
+* Deletion from End
+* Deletion of a Specific Node
+* Pointer Manipulation
+* Updating `next` Pointers
+* Dynamic Memory Management using `new` and `delete`
 
 ---
 
 # ⚡ Time & Space Complexity
 
-| Algorithm             | Time Complexity | Space Complexity |
-| --------------------- | --------------- | ---------------- |
-| Node Creation         | O(1)            | O(1)             |
-| Linked List Traversal | O(n)            | O(1)             |
-| Insert at Beginning   | O(1)            | O(1)             |
-| Insert at End         | O(n)            | O(1)             |
-| Delete a Node         | O(n)            | O(1)             |
+| Algorithm                   | Time Complexity | Space Complexity |
+| --------------------------- | --------------: | ---------------: |
+| Insert at Beginning         |            O(1) |             O(1) |
+| Insert at End               |            O(n) |             O(1) |
+| Insert at Specific Position |            O(n) |             O(1) |
+| Delete from Beginning       |            O(1) |             O(1) |
+| Delete from End             |            O(n) |             O(1) |
+| Delete Specific Node        |            O(n) |             O(1) |
+| Linked List Traversal       |            O(n) |             O(1) |
+
+> **Note:** If a tail pointer or direct reference to the required node is available, some insertion/deletion operations can be performed in **O(1)**.
 
 ---
 
 # 💡 Concepts Learned
 
-### 1. Linked List
+### 1. Insertion
 
-A linear data structure made up of nodes where each node stores data and a pointer to the next node.
+Insertion means adding a new node to an existing linked list by modifying the `next` pointers.
 
-### 2. Node
+For inserting a node between two nodes:
 
-A node contains data and the address of the next node.
+```cpp
+newNode->next = previous->next;
+previous->next = newNode;
+```
 
-### 3. Node Creation
+Example:
 
-Creating nodes dynamically using pointers and the `new` keyword.
+```text
+10 → 20 → 30
 
-### 4. Node Traversal
+Insert 15
 
-Visiting each node by following the `next` pointer until `nullptr` is reached.
+10 → 15 → 20 → 30
+```
 
-### 5. Connecting Nodes
+---
 
-Connecting nodes by storing the address of the next node inside the `next` pointer.
+### 2. Deletion
 
-### 6. Head & Tail
+Deletion means removing a node from the linked list and reconnecting the surrounding nodes.
 
-The head points to the first node, while the tail represents the last node of the linked list.
+For deleting a node:
 
-### 7. Pointers in Linked Lists
+```cpp
+previous->next = current->next;
+delete current;
+```
 
-Using pointers to store node addresses and move through the linked list.
+Example:
+
+```text
+10 → 15 → 20 → 30
+
+Delete 20
+
+10 → 15 → 30
+```
+
+---
+
+### 3. Pointer Manipulation
+
+Learned how changing the `next` pointer can modify the structure of an entire linked list.
+
+```text
+Before:
+
+10 → 20 → 30
+
+After changing the link:
+
+10 ─────→ 30
+     20
+```
+
+---
+
+### 4. Dynamic Memory Management
+
+Used:
+
+```cpp
+new Node(value);
+```
+
+to dynamically create nodes and:
+
+```cpp
+delete node;
+```
+
+to release memory when a node is removed.
+
+---
+
+### 5. Traversal After Modification
+
+After insertion or deletion, the list can be traversed again using:
+
+```cpp
+Node* temp = head;
+
+while(temp != nullptr) {
+    cout << temp->data << " ";
+    temp = temp->next;
+}
+```
 
 ---
 
@@ -72,7 +147,10 @@ Using pointers to store node addresses and move through the linked list.
 03-ConnectNodes.cpp
 04-InsertAtBeginning.cpp
 05-InsertAtEnd.cpp
-06-DeleteNode.cpp
+06-InsertAtPosition.cpp
+07-DeleteFromBeginning.cpp
+08-DeleteFromEnd.cpp
+09-DeleteAtPosition.cpp
 ```
 
 Each file contains a complete C++ implementation with comments and output.
@@ -87,23 +165,48 @@ Each file contains a complete C++ implementation with comments and output.
 * Dynamic Memory Allocation
 * Head & Tail
 * Node Traversal
+* Insertion
+* Deletion
 * Pointer Manipulation
+* `new` and `delete`
+* Updating Node Connections
+
+---
+
+# 🔥 Key Pointer Patterns
+
+### Insertion
+
+```cpp
+newNode->next = previous->next;
+previous->next = newNode;
+```
+
+### Deletion
+
+```cpp
+previous->next = current->next;
+delete current;
+```
+
+These pointer operations form the foundation of linked list manipulation.
 
 ---
 
 # ✅ Progress Tracker
 
-| Day       | Topic                           | Status          |
-| --------- | ------------------------------- | --------------- |
-| Day 1     | Two Sum                         | ✅ Completed     |
-| Day 2     | C++ STL                         | ✅ Completed     |
-| **Day 3** | **Arrays, Sorting & Searching** | **✅ Completed** |
-| **Day 7** | **Linked Lists**                | **🚀 Started**  |
+| Day       | Topic                                | Status           |
+| --------- | ------------------------------------ | ---------------- |
+| Day 1     | Two Sum                              | ✅ Completed      |
+| Day 2     | C++ STL                              | ✅ Completed      |
+| Day 3     | Arrays, Sorting & Searching          | ✅ Completed      |
+| Day 7     | Linked List Basics                   | ✅ Completed      |
+| **Day 8** | **Linked List Insertion & Deletion** | **🚀 Completed** |
 
 ---
 
 ## 🎯 Goal
 
-Solve DSA problems consistently, build strong fundamentals, and prepare for **coding interviews** and **placements** one day at a time.
+Solve DSA problems consistently, strengthen problem-solving skills, and build strong fundamentals for **coding interviews and placements** one day at a time.
 
-**Day 7 Started 🚀**
+**Day 8 Completed 🚀**
