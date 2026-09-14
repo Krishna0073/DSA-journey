@@ -1,212 +1,170 @@
-# 🚀 DSA Journey — Day 8: Linked List Insertion & Deletion
+# 🚀 DSA Journey — Day 10: Linked List Sum & Doubly Linked List
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
 ---
 
-# 📌 Topic: Linked List — Insertion & Deletion
+# 📌 Topic: Linked List Sum & Doubly Linked List Operations
 
 **Language:** C++
 **Category:** DSA Fundamentals
 
 ### 📝 What I Practiced
 
-* Linked List Insertion
+* Add Two Numbers using Linked Lists
+* Linked List Traversal
+* Carry Handling in Linked List Addition
+* Creating Result Linked Lists
+* Doubly Linked List
+* `prev` and `next` Pointers
 * Insertion at Beginning
 * Insertion at End
-* Insertion at a Specific Position
-* Linked List Deletion
+* Insertion at Specific Position
 * Deletion from Beginning
 * Deletion from End
-* Deletion of a Specific Node
+* Deletion from Specific Position
+* Forward Traversal
+* Backward Traversal
 * Pointer Manipulation
-* Updating `next` Pointers
 * Dynamic Memory Management using `new` and `delete`
 
 ---
 
-# ⚡ Time & Space Complexity
+# 🧮 Add Two Numbers Using Linked Lists
 
-| Algorithm                   | Time Complexity | Space Complexity |
-| --------------------------- | --------------: | ---------------: |
-| Insert at Beginning         |            O(1) |             O(1) |
-| Insert at End               |            O(n) |             O(1) |
-| Insert at Specific Position |            O(n) |             O(1) |
-| Delete from Beginning       |            O(1) |             O(1) |
-| Delete from End             |            O(n) |             O(1) |
-| Delete Specific Node        |            O(n) |             O(1) |
-| Linked List Traversal       |            O(n) |             O(1) |
+Solved the problem of adding two numbers represented by linked lists.
 
-> **Note:** If a tail pointer or direct reference to the required node is available, some insertion/deletion operations can be performed in **O(1)**.
+Example:
+
+```text
+l1 = [2,4,3]
+l2 = [5,6,4]
+
+342 + 465 = 807
+
+Output:
+
+[7,0,8]
+```
+
+Since the digits are stored in reverse order, addition can be performed directly from the head of both linked lists.
+
+### Core Logic
+
+```cpp
+int sum = carry;
+
+if(l1 != nullptr) {
+    sum += l1->val;
+    l1 = l1->next;
+}
+
+if(l2 != nullptr) {
+    sum += l2->val;
+    l2 = l2->next;
+}
+
+int digit = sum % 10;
+carry = sum / 10;
+```
+
+The `carry` stores the value that needs to be added to the next digit.
 
 ---
 
-# 💡 Concepts Learned
+# 🔗 Doubly Linked List
 
-### 1. Insertion
-
-Insertion means adding a new node to an existing linked list by modifying the `next` pointers.
-
-For inserting a node between two nodes:
+A Doubly Linked List is a linked list where each node contains two pointers:
 
 ```cpp
-newNode->next = previous->next;
-previous->next = newNode;
+Node* prev;
+Node* next;
+```
+
+Structure:
+
+```text
+nullptr ← [10] ⇄ [20] ⇄ [30] → nullptr
+```
+
+`prev` allows movement toward the previous node, while `next` allows movement toward the next node.
+
+---
+
+# ➕ Doubly Linked List Insertion
+
+### Insert at Beginning
+
+```cpp
+newNode->next = head;
+head->prev = newNode;
+head = newNode;
 ```
 
 Example:
 
 ```text
-10 → 20 → 30
+10 ⇄ 20 ⇄ 30
+
+Insert 5
+
+5 ⇄ 10 ⇄ 20 ⇄ 30
+```
+
+### Insert at End
+
+```text
+10 ⇄ 20 ⇄ 30
+
+Insert 40
+
+10 ⇄ 20 ⇄ 30 ⇄ 40
+```
+
+### Insert at Specific Position
+
+Both `prev` and `next` connections must be updated when inserting a node between two nodes.
+
+```text
+10 ⇄ 20 ⇄ 30
 
 Insert 15
 
-10 → 15 → 20 → 30
+10 ⇄ 15 ⇄ 20 ⇄ 30
 ```
 
 ---
 
-### 2. Deletion
+# ❌ Doubly Linked List Deletion
 
-Deletion means removing a node from the linked list and reconnecting the surrounding nodes.
-
-For deleting a node:
-
-```cpp
-previous->next = current->next;
-delete current;
-```
-
-Example:
+### Delete from Beginning
 
 ```text
-10 → 15 → 20 → 30
+10 ⇄ 20 ⇄ 30
 
-Delete 20
+Delete 10
 
-10 → 15 → 30
+20 ⇄ 30
 ```
 
----
+The new head's `prev` becomes:
 
-### 3. Pointer Manipulation
+```cpp
+head->prev = nullptr;
+```
 
-Learned how changing the `next` pointer can modify the structure of an entire linked list.
+### Delete from End
 
 ```text
-Before:
+10 ⇄ 20 ⇄ 30
 
-10 → 20 → 30
+Delete 30
 
-After changing the link:
-
-10 ─────→ 30
-     20
+10 ⇄ 20
 ```
 
----
-
-### 4. Dynamic Memory Management
-
-Used:
+The previous node's `next` becomes:
 
 ```cpp
-new Node(value);
+temp->prev->next =
 ```
-
-to dynamically create nodes and:
-
-```cpp
-delete node;
-```
-
-to release memory when a node is removed.
-
----
-
-### 5. Traversal After Modification
-
-After insertion or deletion, the list can be traversed again using:
-
-```cpp
-Node* temp = head;
-
-while(temp != nullptr) {
-    cout << temp->data << " ";
-    temp = temp->next;
-}
-```
-
----
-
-# 📂 Files Included
-
-```text
-01-CreateNode.cpp
-02-Traversal.cpp
-03-ConnectNodes.cpp
-04-InsertAtBeginning.cpp
-05-InsertAtEnd.cpp
-06-InsertAtPosition.cpp
-07-DeleteFromBeginning.cpp
-08-DeleteFromEnd.cpp
-09-DeleteAtPosition.cpp
-```
-
-Each file contains a complete C++ implementation with comments and output.
-
----
-
-# 📚 Concepts Practiced
-
-* Linked Lists
-* Nodes
-* Pointers
-* Dynamic Memory Allocation
-* Head & Tail
-* Node Traversal
-* Insertion
-* Deletion
-* Pointer Manipulation
-* `new` and `delete`
-* Updating Node Connections
-
----
-
-# 🔥 Key Pointer Patterns
-
-### Insertion
-
-```cpp
-newNode->next = previous->next;
-previous->next = newNode;
-```
-
-### Deletion
-
-```cpp
-previous->next = current->next;
-delete current;
-```
-
-These pointer operations form the foundation of linked list manipulation.
-
----
-
-# ✅ Progress Tracker
-
-| Day       | Topic                                | Status           |
-| --------- | ------------------------------------ | ---------------- |
-| Day 1     | Two Sum                              | ✅ Completed      |
-| Day 2     | C++ STL                              | ✅ Completed      |
-| Day 3     | Arrays, Sorting & Searching          | ✅ Completed      |
-| Day 7     | Linked List Basics                   | ✅ Completed      |
-| **Day 8** | **Linked List Insertion & Deletion** | **🚀 Completed** |
-
----
-
-## 🎯 Goal
-
-Solve DSA problems consistently, strengthen problem-solving skills, and build strong fundamentals for **coding interviews and placements** one day at a time.
-
-**Day 8 Completed 🚀**
