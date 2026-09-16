@@ -1,170 +1,300 @@
-# 🚀 DSA Journey — Day 10: Linked List Sum & Doubly Linked List
+# 🚀 DSA Journey — Day 11: Linked List Insertion & Deletion
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
 ---
 
-# 📌 Topic: Linked List Sum & Doubly Linked List Operations
+# 📌 Topic: Singly Linked List Insertion & Deletion
 
 **Language:** C++
 **Category:** DSA Fundamentals
 
 ### 📝 What I Practiced
 
-* Add Two Numbers using Linked Lists
-* Linked List Traversal
-* Carry Handling in Linked List Addition
-* Creating Result Linked Lists
-* Doubly Linked List
-* `prev` and `next` Pointers
+* Linked List Insertion
 * Insertion at Beginning
 * Insertion at End
 * Insertion at Specific Position
+* Linked List Deletion
 * Deletion from Beginning
 * Deletion from End
 * Deletion from Specific Position
-* Forward Traversal
-* Backward Traversal
+* Node Traversal
+* Head Pointer Manipulation
 * Pointer Manipulation
 * Dynamic Memory Management using `new` and `delete`
+* Handling Empty Linked Lists
+* Handling Single-Node Linked Lists
 
 ---
 
-# 🧮 Add Two Numbers Using Linked Lists
+# ➕ Linked List Insertion
 
-Solved the problem of adding two numbers represented by linked lists.
+Practiced inserting new nodes at different positions in a Singly Linked List.
+
+## Insert at Beginning
+
+```cpp
+Node* newnode = new Node(val);
+
+newnode->next = start;
+start = newnode;
+```
 
 Example:
 
 ```text
-l1 = [2,4,3]
-l2 = [5,6,4]
+10 → 20 → 30
 
-342 + 465 = 807
+Insert 5
 
-Output:
-
-[7,0,8]
+5 → 10 → 20 → 30
 ```
 
-Since the digits are stored in reverse order, addition can be performed directly from the head of both linked lists.
-
-### Core Logic
-
-```cpp
-int sum = carry;
-
-if(l1 != nullptr) {
-    sum += l1->val;
-    l1 = l1->next;
-}
-
-if(l2 != nullptr) {
-    sum += l2->val;
-    l2 = l2->next;
-}
-
-int digit = sum % 10;
-carry = sum / 10;
-```
-
-The `carry` stores the value that needs to be added to the next digit.
+The new node becomes the new `start` (head).
 
 ---
 
-# 🔗 Doubly Linked List
+## Insert at End
 
-A Doubly Linked List is a linked list where each node contains two pointers:
+```cpp
+Node* newnode = new Node(val);
+
+Node* temp = start;
+
+while(temp->next != nullptr) {
+    temp = temp->next;
+}
+
+temp->next = newnode;
+```
+
+Example:
+
+```text
+10 → 20 → 30
+
+Insert 40
+
+10 → 20 → 30 → 40
+```
+
+The traversal continues until the last node is reached.
+
+---
+
+## Insert at Specific Position
+
+For inserting a node between two existing nodes:
+
+```cpp
+newnode->next = temp->next;
+temp->next = newnode;
+```
+
+Example:
+
+```text
+10 → 20 → 30 → 40
+
+Insert 25 at position 3
+
+10 → 20 → 25 → 30 → 40
+```
+
+The important idea is that `temp` points to the node **before the insertion position**.
+
+---
+
+# ❌ Linked List Deletion
+
+Practiced deleting nodes from different positions while maintaining correct pointer connections.
+
+## Delete from Beginning
+
+```cpp
+Node* temp = start;
+
+start = start->next;
+
+delete temp;
+```
+
+Example:
+
+```text
+10 → 20 → 30
+
+Delete 10
+
+20 → 30
+```
+
+The `start` pointer moves to the second node and the old first node is deleted.
+
+---
+
+## Delete from End
+
+To delete the last node, traverse until the **second-last node**.
+
+```cpp
+while(temp->next->next != nullptr) {
+    temp = temp->next;
+}
+
+delete temp->next;
+temp->next = nullptr;
+```
+
+Example:
+
+```text
+10 → 20 → 30 → 40
+
+Delete 40
+
+10 → 20 → 30
+```
+
+The second-last node's `next` is changed to `nullptr`.
+
+---
+
+## Delete from Specific Position
+
+The node before the target node is located first.
+
+```cpp
+Node* del = temp->next;
+
+temp->next = del->next;
+
+delete del;
+```
+
+Example:
+
+```text
+10 → 20 → 30 → 40
+
+Delete position 3
+
+10 → 20 → 40
+```
+
+The target node is bypassed and then deleted from memory.
+
+---
+
+# 🧠 Important Pointer Patterns
+
+### Insertion
+
+```cpp
+newnode->next = temp->next;
+temp->next = newnode;
+```
+
+### Deletion
+
+```cpp
+Node* del = temp->next;
+temp->next = del->next;
+delete del;
+```
+
+These two patterns are the core logic behind insertion and deletion at a specific position.
+
+---
+
+# ⏱️ Time Complexity
+
+| Operation             | Time Complexity |
+| --------------------- | --------------: |
+| Insert at Beginning   |            O(1) |
+| Insert at End         |            O(n) |
+| Insert at Position    |            O(n) |
+| Delete from Beginning |            O(1) |
+| Delete from End       |            O(n) |
+| Delete from Position  |            O(n) |
+| Traversal             |            O(n) |
+
+---
+
+# 🔄 Singly vs Doubly Linked List
+
+### Singly Linked List
+
+```text
+10 → 20 → 30 → nullptr
+```
+
+Each node contains:
+
+```cpp
+Node* next;
+```
+
+### Doubly Linked List
+
+```text
+nullptr ← 10 ⇄ 20 ⇄ 30 → nullptr
+```
+
+Each node contains:
 
 ```cpp
 Node* prev;
 Node* next;
 ```
 
-Structure:
-
-```text
-nullptr ← [10] ⇄ [20] ⇄ [30] → nullptr
-```
-
-`prev` allows movement toward the previous node, while `next` allows movement toward the next node.
+A Doubly Linked List allows traversal in both directions, while a Singly Linked List normally allows traversal only forward.
 
 ---
 
-# ➕ Doubly Linked List Insertion
+# 🛠️ Memory Management
 
-### Insert at Beginning
+Nodes are dynamically created using:
 
 ```cpp
-newNode->next = head;
-head->prev = newNode;
-head = newNode;
+Node* newnode = new Node(val);
 ```
 
-Example:
+When a node is no longer needed, it should be removed using:
 
-```text
-10 ⇄ 20 ⇄ 30
-
-Insert 5
-
-5 ⇄ 10 ⇄ 20 ⇄ 30
+```cpp
+delete node;
 ```
 
-### Insert at End
+This helps prevent unnecessary memory usage.
+
+---
+
+# 🎯 Key Learning
+
+Today's main focus was understanding **how pointers are changed during insertion and deletion** rather than simply memorizing functions.
+
+The most important patterns practiced were:
 
 ```text
-10 ⇄ 20 ⇄ 30
+Insertion:
+Connect new node → Connect previous node
 
-Insert 40
-
-10 ⇄ 20 ⇄ 30 ⇄ 40
-```
-
-### Insert at Specific Position
-
-Both `prev` and `next` connections must be updated when inserting a node between two nodes.
-
-```text
-10 ⇄ 20 ⇄ 30
-
-Insert 15
-
-10 ⇄ 15 ⇄ 20 ⇄ 30
+Deletion:
+Save node → Bypass node → Delete node
 ```
 
 ---
 
-# ❌ Doubly Linked List Deletion
-
-### Delete from Beginning
+# 🚀 DSA Progress
 
 ```text
-10 ⇄ 20 ⇄ 30
-
-Delete 10
-
-20 ⇄ 30
+Day 7  → Linked List Basics
+Day 8  → Linked List Operations & Doubly Linked List
+Day 9  → Linked List Practice
+Day 10 → Linked List Sum & Doubly Linked List
+Day 11 → Singly Linked List Insertion & Deletion
 ```
 
-The new head's `prev` becomes:
-
-```cpp
-head->prev = nullptr;
-```
-
-### Delete from End
-
-```text
-10 ⇄ 20 ⇄ 30
-
-Delete 30
-
-10 ⇄ 20
-```
-
-The previous node's `next` becomes:
-
-```cpp
-temp->prev->next =
-```
+Continuing the journey toward stronger **DSA problem-solving and C++ coding skills**.
