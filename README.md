@@ -21,6 +21,10 @@ My daily **Data Structures & Algorithms (DSA)** practice repository for masterin
 * Handling Empty Linked Lists
 * Using Temporary Pointers for Traversal
 * Pointer Movement using `temp = temp->next`
+* Understanding Double Pointers
+* Using `Node**` with Linked Lists
+* Passing `head` by Address
+* Modifying the Original `head` Pointer
 * Edge Case Handling
 * Building Logic Using Multiple Variables
 * Dry Running Linked List Problems
@@ -107,12 +111,6 @@ Searching for:
 30
 ```
 
-The traversal checks:
-
-```text
-10 → 20 → 30 ✓
-```
-
 The value is found when:
 
 ```cpp
@@ -134,7 +132,7 @@ temp->data
 Here:
 
 ```text
-temp      → address of current node
+temp       → address of current node
 temp->data → value stored in current node
 temp->next → address of next node
 ```
@@ -286,6 +284,273 @@ This prevents invalid access to a node that does not exist.
 
 ---
 
+# ⭐ Linked List with Double Pointer
+
+I also practiced understanding **double pointers with linked lists**, especially `Node**`.
+
+A double pointer is a pointer that stores the address of another pointer.
+
+```cpp
+Node** head
+```
+
+The relationship can be visualized as:
+
+```text
+Node** head
+     ↓
+   Node* head
+     ↓
+    Node
+     ↓
+   data
+```
+
+---
+
+# 🧠 Why Use `Node**`?
+
+Normally, if we pass:
+
+```cpp
+Node* head
+```
+
+to a function, the function receives a copy of the `head` pointer.
+
+If the function changes that pointer:
+
+```cpp
+head = newnode;
+```
+
+the original `head` outside the function does not change.
+
+To modify the original `head`, we can pass its address:
+
+```cpp
+Node** head
+```
+
+When calling the function:
+
+```cpp
+insertatstart(&head, 10);
+```
+
+Here:
+
+```text
+head   → stores address of first node
+&head  → address of the head pointer
+Node** → receives the address of head
+```
+
+---
+
+# 🔗 Understanding `Node**`
+
+Consider:
+
+```cpp
+Node* head = nullptr;
+```
+
+Here:
+
+```text
+head
+ ↓
+nullptr
+```
+
+When we pass:
+
+```cpp
+&head
+```
+
+we pass the address of the `head` pointer.
+
+The function receives it as:
+
+```cpp
+Node** head
+```
+
+Inside the function:
+
+```cpp
+*head
+```
+
+means the original `head` pointer.
+
+Therefore:
+
+```cpp
+*head = newnode;
+```
+
+changes the actual `head` outside the function.
+
+---
+
+# 🔥 Insert at Beginning Using `Node**`
+
+Example:
+
+```cpp
+void insertatstart(Node** head, int val) {
+    Node* temp = new Node(val);
+
+    temp->next = *head;
+    *head = temp;
+}
+```
+
+Function call:
+
+```cpp
+insertatstart(&head, 10);
+```
+
+The important statements are:
+
+```cpp
+temp->next = *head;
+```
+
+and:
+
+```cpp
+*head = temp;
+```
+
+The first statement connects the new node to the old first node.
+
+The second statement changes the original `head` to point toward the new node.
+
+---
+
+# 🧩 Double Pointer Dry Run
+
+Suppose the linked list is:
+
+```text
+head
+ ↓
+10 → 20 → 30 → nullptr
+```
+
+Now we call:
+
+```cpp
+insertatstart(&head, 5);
+```
+
+Inside the function:
+
+```text
+Node** head
+     ↓
+original head
+     ↓
+10 → 20 → 30
+```
+
+A new node is created:
+
+```text
+5
+```
+
+Then:
+
+```cpp
+temp->next = *head;
+```
+
+creates:
+
+```text
+5 → 10 → 20 → 30 → nullptr
+```
+
+Finally:
+
+```cpp
+*head = temp;
+```
+
+changes the original `head`:
+
+```text
+head
+ ↓
+5 → 10 → 20 → 30 → nullptr
+```
+
+---
+
+# 🧠 Important Difference
+
+### `Node*`
+
+```cpp
+Node* head;
+```
+
+A pointer to a `Node`.
+
+### `Node**`
+
+```cpp
+Node** head;
+```
+
+A pointer to a `Node*`.
+
+### Relationship
+
+```text
+Node** 
+  ↓
+Node*
+  ↓
+Node
+```
+
+This distinction is important when a function needs to modify the actual head pointer.
+
+---
+
+# 🔥 Important Syntax
+
+```cpp
+Node* head;
+```
+
+```cpp
+Node** head;
+```
+
+```cpp
+insertatstart(&head, 10);
+```
+
+```cpp
+*head
+```
+
+```cpp
+temp->next
+```
+
+These expressions have different meanings and understanding them is important for linked-list implementation.
+
+---
+
 # 🧠 Important Pointer Pattern
 
 A major pattern practiced today was:
@@ -308,6 +573,14 @@ This is one of the most important patterns for solving basic linked-list problem
 temp        → current node
 temp->data  → current node's value
 temp->next  → next node
+```
+
+For modifying the original head through a function:
+
+```text
+&head       → address of head
+Node**      → receives address of head
+*head       → original head pointer
 ```
 
 ---
@@ -334,7 +607,21 @@ Repeat until nullptr
 Print result
 ```
 
-This helped me understand that many linked-list problems are not about changing the links. They are about **traversing the list and building logic around the node values**.
+For operations that need to modify the original `head`:
+
+```text
+Original head
+      ↓
+Pass &head
+      ↓
+Receive using Node**
+      ↓
+Access original head using *head
+      ↓
+Modify *head
+```
+
+This helped me understand the difference between **traversing a linked list** and **modifying the actual head pointer**.
 
 ---
 
@@ -395,6 +682,10 @@ Counting Occurrences
         ↓
 Second Largest
         ↓
+Double Pointer
+        ↓
+Node**
+        ↓
 More Complex Linked List Problems
 ```
 
@@ -412,15 +703,16 @@ For every new problem, I try to:
 4. Decide what condition is required
 5. Update the variables during traversal
 6. Move using `temp = temp->next`
-7. Dry run the logic manually
-8. Test edge cases
-9. Improve my understanding of the pattern
+7. Understand pointer relationships
+8. Dry run the logic manually
+9. Test edge cases
+10. Improve my understanding of the pattern
 
 ---
 
 # 🎯 Today's Main Learning
 
-Today's practice was mainly about **building logic on top of linked-list traversal**.
+Today's practice was mainly about **building logic on top of linked-list traversal and understanding how double pointers can modify the original head pointer**.
 
 I learned that once the traversal pattern is understood:
 
@@ -435,6 +727,18 @@ while(temp != nullptr) {
 
 many basic linked-list problems can be solved by changing only the logic inside the loop.
 
+I also learned that:
+
+```cpp
+Node** head
+```
+
+allows a function to work with the **actual head pointer** when its address is passed using:
+
+```cpp
+&head
+```
+
 ---
 
 # 🔥 Next Goal
@@ -448,6 +752,7 @@ Continue practicing linked-list problems involving:
 * Reverse Linked List
 * Finding Middle Node
 * Detecting Cycles
+* More `Node**` Problems
 * More Pointer-Based Problems
 
 ---
