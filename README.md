@@ -1,692 +1,905 @@
-# 🚀 DSA Journey — Day 13: Linked List Logic Building
+# 🚀 DSA Journey — Day 15: Stack Using Linked List
 
 My daily **Data Structures & Algorithms (DSA)** practice repository for mastering problem-solving and coding interviews using **C++**.
 
 ---
 
-# 📌 Topic: Singly Linked List Logic Building
+# 📌 Topic: Stack Using Linked List
 
 **Language:** C++
 **Category:** DSA Fundamentals
 
 ### 📝 What I Practiced
 
-* Linked List Traversal
-* Counting Nodes
-* Searching for a Value
-* Comparing Node Values
-* Finding Maximum Element
-* Counting Occurrences of a Value
-* Finding Second Largest Element
-* Handling Empty Linked Lists
-* Using Temporary Pointers for Traversal
-* Pointer Movement using `temp = temp->next`
-* Understanding Double Pointers
-* Using `Node**` with Linked Lists
-* Passing `head` by Address
-* Modifying the Original `head` Pointer
-* Edge Case Handling
-* Building Logic Using Multiple Variables
-* Dry Running Linked List Problems
+* Implementing Stack using Linked List
+* Understanding `top` pointer
+* Stack `push()` operation
+* Stack `pop()` operation
+* Stack `peek()` operation
+* Checking whether Stack is empty
+* Displaying Stack elements
+* Counting Stack elements
+* Finding maximum element in Stack
+* Searching for an element in Stack
+* Reversing a Stack using pointers
+* Dynamic memory allocation using `new`
+* Releasing memory using `delete`
+* Linked List traversal
+* Understanding `Node*`
+* Pointer movement using `temp = temp->next`
+* Handling empty Stack conditions
+* Using `nullptr`
+* Pointer manipulation and node connections
 
 ---
 
-# 🔄 Linked List Traversal
+# 🥞 Stack Concept
 
-Practiced traversing a Singly Linked List using a temporary pointer.
+A **Stack** is a linear data structure that follows:
 
-```cpp
-Node* temp = head;
-
-while(temp != nullptr) {
-    temp = temp->next;
-}
+```text
+LIFO
+Last In → First Out
 ```
+
+The element inserted last is removed first.
 
 Example:
 
 ```text
-10 → 20 → 30 → 40 → nullptr
+push(10)
+push(20)
+push(30)
+push(40)
 ```
 
-The `temp` pointer moves through every node until it reaches `nullptr`.
-
----
-
-# 🔢 Count Nodes
-
-Practiced counting the total number of nodes in a linked list.
-
-```cpp
-int count = 0;
-Node* temp = head;
-
-while(temp != nullptr) {
-    count++;
-    temp = temp->next;
-}
-```
-
-Example:
+Stack becomes:
 
 ```text
-10 → 20 → 30 → nullptr
-```
-
-Output:
-
-```text
-3
-```
-
-The main idea is to increase the counter once for every node visited.
-
----
-
-# 🔍 Search for an Element
-
-Practiced searching for a particular value in the linked list.
-
-```cpp
-Node* temp = head;
-
-while(temp != nullptr) {
-    if(temp->data == value) {
-        // value found
-    }
-
-    temp = temp->next;
-}
-```
-
-Example:
-
-```text
-10 → 20 → 30 → 40
-```
-
-Searching for:
-
-```text
+TOP
+ ↓
+40
 30
-```
-
-The value is found when:
-
-```cpp
-temp->data == value
-```
-
----
-
-# 🔎 Comparing Node Values
-
-Practiced accessing and comparing values stored inside different nodes.
-
-The important relationship is:
-
-```cpp
-temp->data
-```
-
-Here:
-
-```text
-temp       → address of current node
-temp->data → value stored in current node
-temp->next → address of next node
-```
-
-This makes it possible to build different comparison-based problems.
-
----
-
-# 📈 Find Maximum Element
-
-Practiced finding the largest value present in a linked list.
-
-Basic logic:
-
-```cpp
-int maximum = head->data;
-Node* temp = head->next;
-
-while(temp != nullptr) {
-    if(temp->data > maximum) {
-        maximum = temp->data;
-    }
-
-    temp = temp->next;
-}
-```
-
-Example:
-
-```text
-10 → 50 → 20 → 40
-```
-
-The maximum value is:
-
-```text
-50
-```
-
-The important idea is to maintain a variable containing the largest value found so far.
-
----
-
-# 🔢 Count Occurrences
-
-Practiced counting how many times a particular value appears in a linked list.
-
-```cpp
-int count = 0;
-Node* temp = head;
-
-while(temp != nullptr) {
-    if(temp->data == value) {
-        count++;
-    }
-
-    temp = temp->next;
-}
-```
-
-Example:
-
-```text
-10 → 20 → 10 → 30 → 10
-```
-
-Searching for:
-
-```text
+20
 10
 ```
 
-Output:
+If we perform:
 
-```text
-3
+```cpp
+pop();
 ```
 
-Every time the current node contains the required value, the counter increases.
+`40` is removed first.
 
 ---
 
-# 🥈 Find Second Largest Element
+# 🧩 Node Structure
 
-Practiced building logic to find the **second largest value** in a linked list.
+The Stack is implemented using a Linked List.
 
-The basic idea is to maintain two variables:
+```cpp
+struct Node{
+    int data;
+    Node* next;
 
-```text
-largest
-secondLargest
+    Node(int val){
+        data=val;
+        next=nullptr;
+    }
+};
 ```
 
-While traversing the linked list, values are compared and the variables are updated when necessary.
-
-Example:
+Each node contains:
 
 ```text
-10 → 40 → 20 → 50 → 30
+data
+ ↓
+value stored in node
+
+next
+ ↓
+address of next node
 ```
 
-Largest:
+The structure is:
 
 ```text
-50
+Node
+ ├── data
+ └── next
 ```
 
-Second Largest:
+---
+
+# 🔝 Top Pointer
+
+The Stack uses a pointer called `top`.
+
+```cpp
+Node* top=nullptr;
+```
+
+Initially:
+
+```text
+top
+ ↓
+nullptr
+```
+
+After inserting elements:
+
+```text
+top
+ ↓
+40 → 30 → 20 → 10 → nullptr
+```
+
+The `top` pointer always points to the element that will be removed first.
+
+---
+
+# 🔍 Check if Stack is Empty
+
+The `isEmpty()` function checks whether the Stack contains any nodes.
+
+```cpp
+bool isEmpty(){
+    return top==nullptr;
+}
+```
+
+If:
+
+```cpp
+top == nullptr
+```
+
+the Stack is empty.
+
+---
+
+# ➕ Push Operation
+
+`push()` inserts a new element at the top of the Stack.
+
+```cpp
+void push(int val){
+    Node* newnode=new Node(val);
+    newnode->next=top;
+    top=newnode;
+}
+```
+
+### Dry Run
+
+Suppose:
+
+```text
+top
+ ↓
+30 → 20 → 10 → nullptr
+```
+
+Now:
+
+```cpp
+push(40);
+```
+
+First a new node is created:
 
 ```text
 40
 ```
 
-This problem helped me understand how multiple variables can work together while traversing a linked list.
-
----
-
-# ⚠️ Empty Linked List
-
-Practiced handling the case where:
-
-```cpp
-head == nullptr
-```
-
-An empty linked list contains no nodes.
-
-```text
-head
- ↓
-nullptr
-```
-
-Before accessing:
-
-```cpp
-head->data
-```
-
-the list should be checked.
-
-```cpp
-if(head == nullptr) {
-    // empty list
-}
-```
-
-This prevents invalid access to a node that does not exist.
-
----
-
-# ⭐ Linked List with Double Pointer
-
-I also practiced understanding **double pointers with linked lists**, especially `Node**`.
-
-A double pointer is a pointer that stores the address of another pointer.
-
-```cpp
-Node** head
-```
-
-The relationship can be visualized as:
-
-```text
-Node** head
-     ↓
-   Node* head
-     ↓
-    Node
-     ↓
-   data
-```
-
----
-
-# 🧠 Why Use `Node**`?
-
-Normally, if we pass:
-
-```cpp
-Node* head
-```
-
-to a function, the function receives a copy of the `head` pointer.
-
-If the function changes that pointer:
-
-```cpp
-head = newnode;
-```
-
-the original `head` outside the function does not change.
-
-To modify the original `head`, we can pass its address:
-
-```cpp
-Node** head
-```
-
-When calling the function:
-
-```cpp
-insertatstart(&head, 10);
-```
-
-Here:
-
-```text
-head   → stores address of first node
-&head  → address of the head pointer
-Node** → receives the address of head
-```
-
----
-
-# 🔗 Understanding `Node**`
-
-Consider:
-
-```cpp
-Node* head = nullptr;
-```
-
-Here:
-
-```text
-head
- ↓
-nullptr
-```
-
-When we pass:
-
-```cpp
-&head
-```
-
-we pass the address of the `head` pointer.
-
-The function receives it as:
-
-```cpp
-Node** head
-```
-
-Inside the function:
-
-```cpp
-*head
-```
-
-means the original `head` pointer.
-
-Therefore:
-
-```cpp
-*head = newnode;
-```
-
-changes the actual `head` outside the function.
-
----
-
-# 🔥 Insert at Beginning Using `Node**`
-
-Example:
-
-```cpp
-void insertatstart(Node** head, int val) {
-    Node* temp = new Node(val);
-
-    temp->next = *head;
-    *head = temp;
-}
-```
-
-Function call:
-
-```cpp
-insertatstart(&head, 10);
-```
-
-The important statements are:
-
-```cpp
-temp->next = *head;
-```
-
-and:
-
-```cpp
-*head = temp;
-```
-
-The first statement connects the new node to the old first node.
-
-The second statement changes the original `head` to point toward the new node.
-
----
-
-# 🧩 Double Pointer Dry Run
-
-Suppose the linked list is:
-
-```text
-head
- ↓
-10 → 20 → 30 → nullptr
-```
-
-Now we call:
-
-```cpp
-insertatstart(&head, 5);
-```
-
-Inside the function:
-
-```text
-Node** head
-     ↓
-original head
-     ↓
-10 → 20 → 30
-```
-
-A new node is created:
-
-```text
-5
-```
-
 Then:
 
 ```cpp
-temp->next = *head;
+newnode->next=top;
 ```
 
 creates:
 
 ```text
-5 → 10 → 20 → 30 → nullptr
+40 → 30 → 20 → 10 → nullptr
 ```
 
 Finally:
 
 ```cpp
-*head = temp;
+top=newnode;
 ```
 
-changes the original `head`:
+So:
 
 ```text
-head
+top
  ↓
-5 → 10 → 20 → 30 → nullptr
+40 → 30 → 20 → 10 → nullptr
 ```
 
 ---
 
-# 🧠 Important Difference
+# ➖ Pop Operation
 
-### `Node*`
-
-```cpp
-Node* head;
-```
-
-A pointer to a `Node`.
-
-### `Node**`
+`pop()` removes the element from the top of the Stack.
 
 ```cpp
-Node** head;
+void pop(){
+    if(isEmpty()){
+        return;
+    }
+
+    Node* temp=top;
+    top=top->next;
+    delete temp;
+}
 ```
 
-A pointer to a `Node*`.
+### Important Steps
 
-### Relationship
+First:
+
+```cpp
+Node* temp=top;
+```
+
+Store the current top node.
+
+Then:
+
+```cpp
+top=top->next;
+```
+
+Move `top` to the next node.
+
+Finally:
+
+```cpp
+delete temp;
+```
+
+Free the memory of the removed node.
+
+Example:
 
 ```text
-Node** 
-  ↓
-Node*
-  ↓
-Node
+Before:
+
+top
+ ↓
+40 → 30 → 20 → 10
 ```
 
-This distinction is important when a function needs to modify the actual head pointer.
+After `pop()`:
+
+```text
+top
+ ↓
+30 → 20 → 10
+```
 
 ---
 
-# 🔥 Important Syntax
+# 👀 Peek Operation
+
+`peek()` displays the element currently present at the top.
 
 ```cpp
-Node* head;
+void peek(){
+    if(isEmpty()){
+        cout<<"Stack is Empty";
+        return;
+    }
+
+    cout<<top->data<<" ";
+}
 ```
+
+For:
+
+```text
+top
+ ↓
+40 → 30 → 20 → 10
+```
+
+Output:
+
+```text
+40
+```
+
+Unlike `pop()`, `peek()` does not remove the element.
+
+---
+
+# 📋 Display Stack
+
+The `display()` function traverses the complete Stack.
 
 ```cpp
-Node** head;
+void display(){
+    if(isEmpty()){
+        cout<<"Stack is Empty";
+        return;
+    }
+
+    Node* temp=top;
+
+    while(temp!=nullptr){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
 ```
+
+The traversal pattern is:
+
+```text
+top
+ ↓
+40 → 30 → 20 → 10 → nullptr
+```
+
+Output:
+
+```text
+40 30 20 10
+```
+
+Important pattern:
 
 ```cpp
-insertatstart(&head, 10);
+Node* temp=top;
+
+while(temp!=nullptr){
+    cout<<temp->data<<" ";
+    temp=temp->next;
+}
 ```
+
+---
+
+# 🔢 Count Stack Elements
+
+The `count()` function counts the number of nodes in the Stack.
 
 ```cpp
-*head
+int count(){
+    int c=0;
+    Node* temp=top;
+
+    while(temp!=nullptr){
+        c++;
+        temp=temp->next;
+    }
+
+    return c;
+}
 ```
+
+Example:
+
+```text
+top
+ ↓
+40 → 30 → 20 → 10 → nullptr
+```
+
+Output:
+
+```text
+4
+```
+
+The counter increases once for every node visited.
+
+---
+
+# 📈 Find Maximum Element
+
+The `maximum()` function finds the largest value in the Stack.
 
 ```cpp
-temp->next
+int maximum(){
+    Node* temp=top;
+    int max=temp->data;
+
+    while(temp!=nullptr){
+        if(temp->data > max){
+            max=temp->data;
+        }
+
+        temp=temp->next;
+    }
+
+    return max;
+}
 ```
 
-These expressions have different meanings and understanding them is important for linked-list implementation.
+Example:
+
+```text
+40 → 30 → 20 → 10
+```
+
+Maximum:
+
+```text
+40
+```
+
+The important idea is:
+
+```text
+Start with first element
+        ↓
+Compare every next element
+        ↓
+Update max when a larger value is found
+```
+
+---
+
+# 🔍 Search Element
+
+The `search()` function searches for a value and returns its index.
+
+```cpp
+int search(int val){
+    Node* temp=top;
+    int index=0;
+
+    while(temp!=nullptr){
+        if(temp->data==val){
+            return index;
+        }
+
+        temp=temp->next;
+        index++;
+    }
+
+    return -1;
+}
+```
+
+Example:
+
+```text
+top
+ ↓
+40 → 30 → 20 → 10
+```
+
+Searching:
+
+```cpp
+search(20);
+```
+
+Output:
+
+```text
+2
+```
+
+Because indexing starts from `0`:
+
+```text
+40 → index 0
+30 → index 1
+20 → index 2
+10 → index 3
+```
+
+If the value does not exist:
+
+```text
+-1
+```
+
+is returned.
+
+---
+
+# 🔄 Reverse Stack
+
+The Stack is reversed using three pointers:
+
+```cpp
+Node* prev=nullptr;
+Node* current=top;
+Node* next=nullptr;
+```
+
+Complete function:
+
+```cpp
+void reverse(){
+    Node* prev=nullptr;
+    Node* current=top;
+    Node* next=nullptr;
+
+    while(current!=nullptr){
+        next=current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
+
+    top=prev;
+}
+```
+
+### Pointer Logic
+
+The important three pointers are:
+
+```text
+prev
+current
+next
+```
+
+The main operations are:
+
+```cpp
+next=current->next;
+current->next=prev;
+prev=current;
+current=next;
+```
+
+Example:
+
+```text
+Before:
+
+top
+ ↓
+40 → 30 → 20 → 10 → nullptr
+```
+
+After reversing:
+
+```text
+top
+ ↓
+10 → 20 → 30 → 40 → nullptr
+```
+
+Finally:
+
+```cpp
+top=prev;
+```
+
+makes the new first node the Stack's top.
 
 ---
 
 # 🧠 Important Pointer Pattern
 
-A major pattern practiced today was:
+A major pattern practiced today was Linked List traversal:
 
 ```cpp
-Node* temp = head;
+Node* temp=top;
 
-while(temp != nullptr) {
-    // process temp->data
-
-    temp = temp->next;
+while(temp!=nullptr){
+    temp=temp->next;
 }
 ```
 
-This is one of the most important patterns for solving basic linked-list problems.
-
-### Remember:
+Here:
 
 ```text
-temp        → current node
-temp->data  → current node's value
-temp->next  → next node
+temp
+ ↓
+current node
 ```
 
-For modifying the original head through a function:
+```text
+temp->data
+ ↓
+value of current node
+```
 
 ```text
-&head       → address of head
-Node**      → receives address of head
-*head       → original head pointer
+temp->next
+ ↓
+address of next node
+```
+
+This same traversal pattern was used for:
+
+```text
+Display
+Count
+Maximum
+Search
 ```
 
 ---
 
-# 🔥 Logic Building Pattern
+# 🔥 Stack Operations
 
-Most problems practiced today followed the same basic structure:
-
-```text
-Start from head
-      ↓
-Create required variables
-      ↓
-Traverse using temp
-      ↓
-Check / compare temp->data
-      ↓
-Update variables
-      ↓
-Move temp to next node
-      ↓
-Repeat until nullptr
-      ↓
-Print result
-```
-
-For operations that need to modify the original `head`:
+The main Stack operations practiced were:
 
 ```text
-Original head
-      ↓
-Pass &head
-      ↓
-Receive using Node**
-      ↓
-Access original head using *head
-      ↓
-Modify *head
+push()
+  ↓
+Insert element at top
+
+pop()
+  ↓
+Remove element from top
+
+peek()
+  ↓
+View top element
+
+isEmpty()
+  ↓
+Check whether Stack is empty
 ```
 
-This helped me understand the difference between **traversing a linked list** and **modifying the actual head pointer**.
+Additional logic-building operations:
+
+```text
+display()
+count()
+maximum()
+search()
+reverse()
+```
 
 ---
 
-# 🧪 Dry Run Example
+# 🧪 Complete Example
 
-For the linked list:
+Elements inserted:
 
-```text
-10 → 20 → 10 → 40 → 30 → nullptr
+```cpp
+push(10);
+push(20);
+push(30);
+push(40);
 ```
 
-While traversing:
+Stack becomes:
 
 ```text
-temp = 10
-temp = 20
-temp = 10
-temp = 40
-temp = 30
-temp = nullptr
+TOP
+ ↓
+40
+30
+20
+10
 ```
 
-During each step, the program can perform different operations such as:
+After:
+
+```cpp
+display();
+```
+
+Output:
 
 ```text
-Count nodes
-Search value
-Find maximum
-Count occurrences
-Compare values
-Find second largest
+40 30 20 10
 ```
 
-The traversal pattern remains almost the same; only the logic inside the loop changes.
+After:
+
+```cpp
+peek();
+```
+
+Output:
+
+```text
+40
+```
+
+After:
+
+```cpp
+pop();
+```
+
+Stack becomes:
+
+```text
+TOP
+ ↓
+30
+20
+10
+```
+
+Then:
+
+```cpp
+count();
+```
+
+returns:
+
+```text
+3
+```
+
+And:
+
+```cpp
+maximum();
+```
+
+returns:
+
+```text
+30
+```
+
+Searching:
+
+```cpp
+search(20);
+```
+
+returns:
+
+```text
+1
+```
+
+After:
+
+```cpp
+reverse();
+```
+
+Stack becomes:
+
+```text
+TOP
+ ↓
+10
+20
+30
+```
+
+---
+
+# ⚠️ Empty Stack Handling
+
+Before performing operations that access the top node, the Stack should be checked.
+
+```cpp
+if(isEmpty()){
+    return;
+}
+```
+
+For example:
+
+```cpp
+if(isEmpty()){
+    cout<<"Stack is Empty";
+    return;
+}
+```
+
+This prevents accessing:
+
+```cpp
+top->data
+```
+
+when:
+
+```cpp
+top==nullptr
+```
+
+---
+
+# 🧠 Logic Building Pattern
+
+Most Stack operations using a Linked List follow this structure:
+
+```text
+Start from top
+      ↓
+Create required pointer/variables
+      ↓
+Check Stack condition
+      ↓
+Perform required operation
+      ↓
+Move through nodes if necessary
+      ↓
+Update result
+      ↓
+Return / print result
+```
+
+For traversal-based problems:
+
+```text
+top
+ ↓
+Create temp
+ ↓
+while(temp != nullptr)
+ ↓
+Process temp->data
+ ↓
+temp=temp->next
+ ↓
+Repeat
+```
+
+---
+
+# 📚 Complexity
+
+For the Linked List Stack:
+
+| Operation   | Time Complexity |
+| ----------- | --------------: |
+| `push()`    |            O(1) |
+| `pop()`     |            O(1) |
+| `peek()`    |            O(1) |
+| `isEmpty()` |            O(1) |
+| `display()` |            O(n) |
+| `count()`   |            O(n) |
+| `maximum()` |            O(n) |
+| `search()`  |            O(n) |
+| `reverse()` |            O(n) |
 
 ---
 
 # 📈 Learning Progress
 
 ```text
+C++ Fundamentals
+        ↓
 Linked List Basics
         ↓
 Node Creation
         ↓
-Traversal
+Linked List Traversal
         ↓
 Insertion
         ↓
 Deletion
         ↓
-Counting Nodes
+Linked List Logic Building
         ↓
-Searching
-        ↓
-Finding Maximum
-        ↓
-Counting Occurrences
-        ↓
-Second Largest
-        ↓
-Double Pointer
+Double Pointers
         ↓
 Node**
         ↓
-More Complex Linked List Problems
+Stack
+        ↓
+Stack Using Linked List
+        ↓
+Push
+        ↓
+Pop
+        ↓
+Peek
+        ↓
+Display
+        ↓
+Search / Count / Maximum
+        ↓
+Reverse Stack
 ```
 
 ---
@@ -695,65 +908,101 @@ More Complex Linked List Problems
 
 ### Day → Learn → Code → Test → Dry Run → Improve
 
-For every new problem, I try to:
+For every new DSA problem, I try to:
 
 1. Understand the problem
 2. Identify the required variables
-3. Start traversal from `head`
-4. Decide what condition is required
-5. Update the variables during traversal
-6. Move using `temp = temp->next`
-7. Understand pointer relationships
-8. Dry run the logic manually
-9. Test edge cases
-10. Improve my understanding of the pattern
+3. Understand the data structure
+4. Write the basic syntax
+5. Build the logic step by step
+6. Dry run the code manually
+7. Test edge cases
+8. Check pointer movement
+9. Analyze time complexity
+10. Improve the solution
 
 ---
 
 # 🎯 Today's Main Learning
 
-Today's practice was mainly about **building logic on top of linked-list traversal and understanding how double pointers can modify the original head pointer**.
+Today's practice focused on **implementing a Stack using a Linked List** and understanding how the `top` pointer controls Stack operations.
 
-I learned that once the traversal pattern is understood:
+I practiced:
 
-```cpp
-Node* temp = head;
-
-while(temp != nullptr) {
-    // logic
-    temp = temp->next;
-}
+```text
+push()
+pop()
+peek()
+isEmpty()
+display()
+count()
+maximum()
+search()
+reverse()
 ```
 
-many basic linked-list problems can be solved by changing only the logic inside the loop.
+The most important concept was understanding that a Stack follows:
 
-I also learned that:
-
-```cpp
-Node** head
+```text
+LIFO
+Last In → First Out
 ```
 
-allows a function to work with the **actual head pointer** when its address is passed using:
+while the Linked List provides the nodes and pointers needed to implement it dynamically.
 
-```cpp
-&head
+---
+
+# 🔥 Key Takeaways
+
+```text
+top → points to the top node
+
+push() → adds a node at top
+
+pop() → removes the top node
+
+peek() → reads the top node
+
+isEmpty() → checks top == nullptr
+
+temp → used for traversal
+
+temp->data → current value
+
+temp->next → next node
+
+delete temp → releases removed node
+```
+
+The most important Stack pattern is:
+
+```text
+TOP
+ ↓
+New Node
+ ↓
+Previous Top
+ ↓
+Next Node
+ ↓
+nullptr
 ```
 
 ---
 
-# 🔥 Next Goal
+# 🚀 Next Goal
 
-Continue practicing linked-list problems involving:
+Continue practicing Stack problems involving:
 
-* Minimum Element
-* Duplicate Values
-* Sum of Nodes
-* Average of Nodes
-* Reverse Linked List
-* Finding Middle Node
-* Detecting Cycles
-* More `Node**` Problems
-* More Pointer-Based Problems
+* Stack using Arrays
+* Stack using Linked List
+* Reverse Stack
+* Balanced Parentheses
+* Expression Conversion
+* Infix / Prefix / Postfix
+* Stack-based problem solving
+* More pointer-based Stack problems
+* Understanding Stack applications
 
 ---
 
