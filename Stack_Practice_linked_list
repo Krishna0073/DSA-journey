@@ -1,0 +1,124 @@
+#include<iostream>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* next;
+
+    Node(int val){
+        data=val;
+        next=nullptr;
+    }
+};
+
+Node* top=nullptr;
+
+bool isEmpty(){
+    return top==nullptr;
+}
+
+void push(int val){
+    Node* newnode=new Node(val);
+    newnode->next=top;
+    top=newnode;
+}
+
+void pop(){
+    if(isEmpty()){
+        return;
+    }
+
+    Node* temp=top;
+    top=top->next;
+    delete temp;
+}
+
+void peek(){
+    if(isEmpty()){
+        cout<<"Stack is Empty";
+        return;
+    }
+
+    cout<<top->data<<" ";
+}
+
+void display(){
+    if(isEmpty()){
+        cout<<"Stack is Empty";
+        return;
+    }
+
+    Node* temp=top;
+
+    while(temp!=nullptr){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int count(){
+    int c=0;
+    Node* temp=top;
+    while(temp!=nullptr){
+        c++;
+        temp=temp->next;
+    }
+    return c;
+}
+int maximum(){
+    Node* temp=top;
+    int max=temp->data;
+    while(temp!=nullptr){
+        if(temp->data > max){
+            max=temp->data;
+        }
+        temp=temp->next;
+    }
+    return max;
+}
+int search(int val){
+    Node* temp=top;
+    int index=0;
+    while(temp!=nullptr){
+        if(temp->data==val){
+            return index;
+        }
+        temp=temp->next;
+        index++;
+    }
+    return -1;
+}
+void reverse(){
+    Node* prev=nullptr;
+    Node* current=top;
+    Node* next=nullptr;
+    while(current!=nullptr){
+        next=current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
+    top=prev;
+}
+int main(){
+    push(10);
+    push(20);
+    push(30);
+    push(40);
+
+    display();
+    cout<<endl;
+
+    peek();
+    cout<<endl;
+
+    pop();
+
+    display();
+    cout<<endl;
+    cout<<count()<<endl;
+    cout<<maximum()<<endl;
+    cout<<search(20)<<endl;
+     reverse();
+    display();
+    return 0;
+}
