@@ -1,218 +1,433 @@
 🚀 DSA Journey — Day 37
 My daily Data Structures & Algorithms (DSA) practice repository for strengthening C++ fundamentals, improving problem-solving skills, and preparing for coding interviews.
+
 📌 Current Topic: Priority Queue Using Linked List
+
 Language: C++
+
 Category: Data Structures & Algorithms
+
 Current Progress: Day 37
+
 🧠 What This Repository Is About
 This repository contains my ongoing DSA practice in C++.
 I am using it to learn concepts step by step, implement them from scratch, practice different operations, and improve my understanding of pointers, data structures, algorithms, and problem-solving.
+
 The journey currently includes:
+
 - C++ fundamentals
+
 - Arrays
+
 - Searching
+
 - Sorting
+
 - Linked Lists
+
 - Pointers
+
 - Double Pointers
+
 - Stack
+
 - Queue
+
 - Priority Queue
+
 - Logic-building problems
+
 - Time complexity
+
 📚 Topics Practiced
+
 🔗 Linked List
+
 - Node creation
+
 - Linked List traversal
+
 - Insertion
+
 - Deletion
+
 - Single Linked List
+
 - Doubly Linked List
+
 - Double pointers
+
 - Reversing a Linked List
+
 - Removing duplicates
+
 - Linked List operations
+
 - Linked List problem solving
+
 🥞 Stack
+
 - Stack basics
+
 - Stack using Linked List
+
 - push()
+
 - pop()
+
 - peek()
+
 - Checking whether Stack is empty
+
 - Displaying Stack elements
+
 - Counting elements
+
 - Finding maximum element
+
 - Searching elements
+
 - Reversing a Stack
+
 - Pointer-based Stack operations
+
 Stack Concept
+
 A Stack follows:
+
 LIFO
+
 Last In → First Out
+
 Example:
+
 TOP
+
  ↓
-40
+4
+
+0
+
 30
+
 20
+
 10
+
 If pop() is performed, 40 is removed first.
+
 🚶 Queue
+
 - Queue using Array
+
 - Queue using Linked List
+
 - Queue insertion
+
 - Queue deletion
+
 - Front and Rear pointers
+
 - Queue traversal
+
 - Understanding FIFO
+
 Queue Concept
+
 A Queue follows:
+
 FIFO
+
 First In → First Out
+
 ⭐ Priority Queue
+
 - Priority Queue using Array
+
 - Priority Queue using Linked List
+
 - Priority-based insertion
+
 - Maintaining sorted order
+
 - Pointer traversal
+
 - Node connections
+
 - Dynamic memory allocation
+
 Priority Queue Concept
+
 A Priority Queue processes elements according to their priority instead of simply following normal FIFO order.
+
 Example:
+
 5 → 10 → 20 → 30
+
 If smaller values have higher priority:
+
+
 5 = Highest Priority
+
 30 = Lowest Priority
+
 🔍 Searching
+
 The repository contains practice for searching algorithms, including:
+
 - Binary Search
+
 🔄 Sorting
+
 Sorting algorithms practiced include:
+
 - Bubble Sort
+
 - Insertion Sort
+
 - Merge Sort
+
 - Selection Sort
+
+
 🧩 Logic Building
+
 Additional practice includes:
+
 - Basic logic problems
+
 - Two Sum
+
 - Character/array practice
+
+
 - General programming practice
+
+
 ⏱️ Time Complexity
+
 I am also practicing analysis of algorithm efficiency using:
+
 - Time Complexity
+
 - Big-O notation
+
 - Understanding how operations scale with input size
+
 🗂️ Repository Files
+
 The repository currently contains the following practice files/programs:
+
 🔗 Linked List
+
 - single linked list.cpp
+
 - single linked list practice.cpp
+
 - single linked list question.cpp
+
 - operations on double linked list
+
+
 - reverse linked list.cpp
+
 - remove duplicate.cpp
+
 - LinkedList1.cpp
+
 - linked list DoublePointer.cpp
+
 - Add two Numbers
+
 - Insertion and deletion.cpp
 🥞 Stack
+
 - Stackbasic.cpp
+
 - Stack using LL.cpp
+
 - Stack_Practice_Linked_List
 🚶 Queue
+
 - Queue using array.cpp
+
 - Queue using linked list.cpp
+
 ⭐ Priority Queue
+
 - Priority_queue_using_array.cpp
+
 - Priority_queue_using_Linked_List.cpp
+
 🔍 Searching
+
 - binary search.cpp
+
 🔄 Sorting
+
 - bubble sort.cpp
+
 - insertion sort.cpp
+
 - mergesort.cpp
+
 - selection sort.cpp
+
 🧠 Logic Building / Practice
+
 - basic logic practice.cpp
+
 - practice11.cpp
+
 - charrray.cpp
+
 - two sum.cpp
+
 ⏱️ Complexity
+
 - Time complexity day2
+
 📈 DSA Learning Progress
+
 C++ Fundamentals
+
        ↓
 Arrays
+
+
        ↓
-Searching
+Searchi
+ng
+
        ↓
 Sorting
+
+
        ↓
-Linked List Basics
+Linked 
+List Basics
+
        ↓
-Node Creation
+Node Cr
+eation
+
        ↓
-Traversal
+Travers
+al
+
        ↓
-Insertion
+Inserti
+on
+
        ↓
-Deletion
+Deletio
+
+n
+
        ↓
-Doubly Linked List
+Doubly 
+Linked List
+
        ↓
-Reverse Linked List
+Reverse
+Linked List
+
        ↓
 Remove Duplicates
+       
+       
        ↓
-Pointers
+Pointer
+s
+
        ↓
 Double Pointers
+       
        ↓
 Stack
+
+
        ↓
+
+
 Stack Using Linked List
+
        ↓
-Queue Using Array
+Queue U
+sing Array
        ↓
+
+
 Queue Using Linked List
        ↓
+
+
 Priority Queue
+
        ↓
-Priority Queue Using Array
+Priorit
+y Queue Using Array
+
        ↓
-Priority Queue Using Linked List
+Priorit
+y Queue Using Linked List
+
        ↓
-More DSA Problems 🚀
+More DS
+A Problems 🚀
+
 🧠 Important Pointer Patterns
+
 One of the major parts of my DSA journey is understanding pointers and Linked Lists.
+
 A common traversal pattern is:
+
 Node* temp=head;
 
+
+
 while(temp!=nullptr){
+
     temp=temp->next;
 }
+
+
 Here:
+
 temp
  ↓
+
+
 Current Node
 temp->data
+
+ 
  ↓
 Value stored in current node
+
 temp->next
+
  ↓
 Address of the next node
+
+
 Another important Linked List insertion pattern is:
+
 newnode->next=temp->next;
+
 temp->next=newnode;
+
 Understanding these pointer movements is an important part of my DSA practice.
+
 🧪 My Problem-Solving Approach
+
 For every new DSA problem, I try to follow:
+
 Understand
+
     ↓
 Identify
+
     ↓
 Write Syntax
     ↓
