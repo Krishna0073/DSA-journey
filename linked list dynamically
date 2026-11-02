@@ -1,0 +1,66 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+struct node
+{
+int info;
+node *next;
+};
+class LinkList
+{
+node *start;
+public:
+LinkList()
+{
+start=NULL;
+}
+void create();
+void display();
+~LinkList();
+};
+main()
+{
+
+LinkList L1;
+L1.create();
+cout<<"Link List Is:";
+L1.display();
+}
+void LinkList::create()
+{
+node *ptr;
+char ch='y';
+int x;
+while(ch=='y')
+{
+ptr=new node;//Create a node Dynamically
+cout<<"Enter Info Part Of new Node:";
+cin>>x;
+ptr->info=x;//Assigning x to info part of new node
+ptr->next=start;
+start=ptr;
+cout.flush();
+cout<<"\nWant to input more : n to quit and press y for continue...\n";
+cin>>ch;
+}
+}
+void LinkList::display()
+{
+node *ptr=start; //temporary pointer to first node
+while(ptr!=NULL)
+{
+cout<<ptr->info<<'\t';
+ptr=ptr->next;
+}
+}
+LinkList::~LinkList()
+{
+node *ptr=start;
+cout<<"Destroying...LinkList\n";
+while(ptr!=NULL)
+{
+ptr=ptr->next;//pointing to next node
+delete start;//delete first node
+start=ptr;//update start with address of second node
+}
+}
