@@ -1,0 +1,62 @@
+#include<iostream>
+using namespace std;
+struct Node{
+	int data;
+	Node* left;
+	Node* right;
+	Node(int val){
+		data=val;
+		left=nullptr;
+		right=nullptr;
+	}
+};
+Node* root=nullptr;
+void insert(int item){
+	Node* newnode=new Node(item);
+	newnode->left=nullptr;
+	newnode->right=nullptr;
+	if(root==nullptr){
+		root=newnode;
+		return;
+	}
+	Node* ptr=root;
+	Node* parent=nullptr;
+	while(ptr!=nullptr){
+		parent=ptr;
+		if(item>ptr->data){
+			ptr=ptr->right;
+		}
+		else{
+		ptr= ptr->left;
+		}
+	}
+	if(item>parent->data){
+		parent->right=newnode;
+	}
+	else{
+		parent->left=newnode;
+	}
+}
+void inorder_trav(Node* root){
+	if(root!=nullptr){
+		inorder_trav(root->left);
+		cout<<root->data<<" ";
+		inorder_trav(root->right);
+	}
+}
+void preorder_trav(Node* root){
+	cout<<root->data<<" ";
+	preorder_trav(root->left);
+	preorder_trav(root->right);
+}
+int main(){
+	insert(50);
+	insert(30);
+	insert(70);
+	insert(20);
+	insert(40);
+	insert(60);
+	insert(80);
+	preorder_trav(root);
+	return 0;
+}
