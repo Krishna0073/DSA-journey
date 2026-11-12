@@ -1,0 +1,160 @@
+#include <iostream>
+
+using namespace std;
+
+class Node {
+
+	public :
+	
+    int data;
+    Node *left;
+    Node *right;
+
+    Node() {
+        
+    }
+
+    Node(int value) {
+        data = value;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class BinarySearchTree {
+
+	public :
+	
+    Node *root;
+
+    BinarySearchTree() {
+        root = NULL;
+    }
+
+    Node* search(int key) {
+
+        return search(root,key);
+    }
+
+    Node* search(Node *root, int key) {
+
+        if(root == NULL) {
+            return NULL;
+        }
+        if(root->data == key) {
+            return root;
+        }
+        else if(root->data < key) {
+            return search(root->right, key);
+        }
+        else {
+            return search(root->left, key);
+        }
+    }
+
+    void insert(int key) {
+        root = insert(root, key);
+    }
+
+    
+    Node* insert(Node *root, int key) {
+        
+        if (root == NULL) {
+            root = new Node(key);
+            return root;
+        }
+
+        if (key < root->data)
+            root->left = insert(root->left, key);
+        else if (key > root->data)
+            root->right = insert(root->right, key);
+
+        return root;
+    }
+
+    void inOrder() {
+        inOrder(root);
+    }
+
+    
+    void inOrder(Node *root) {
+        if (root != NULL) {
+            inOrder(root->left);
+            cout << root->data << "     ";
+            inOrder(root->right);
+        }
+    }
+
+    void deleteNode(int key) {
+        root = deleteNode(root, key);
+    }
+
+    Node* deleteNode(Node *root, int key) {
+        
+        if (root == NULL)
+            return root;
+
+        
+        if (key < root->data)
+            root->left = deleteNode(root->left, key);
+        else if (key > root->data)
+            root->right = deleteNode(root->right, key);
+        else {
+            
+            if (root->left == NULL)
+                return root->right;
+            else if (root->right == NULL)
+                return root->left;
+
+            root->data = minValue(root->right);
+
+            root->right = deleteNode(root->right, root->data);
+        }
+
+        return root;
+    }
+
+    int minValue(Node *root) {
+        int min = root->data;
+        while (root->left != NULL) {
+            min = root->left->data;
+            root = root->left;
+        }
+        return min;
+    }
+};
+
+int main() {
+
+    BinarySearchTree binarySearchTree;
+
+    binarySearchTree.insert(16);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(25);
+    binarySearchTree.insert(13);
+    binarySearchTree.insert(18);
+
+    cout <<  "Inorder traversal: " << endl;
+    binarySearchTree.inOrder();
+
+    Node *searchedRes = binarySearchTree.search(5);
+
+    if (searchedRes == NULL) {
+
+        cout <<  "\n\nThe number 5 is not present in the BST" << endl;
+    }
+    else {
+        cout <<  "\n" << searchedRes->data << " is present in the BST" << endl;
+
+    }
+
+    cout <<  "\nLet us delete the element 10 from the Binary Search Tree" << endl;
+    binarySearchTree.deleteNode(10);
+    cout <<  "\nInorder traversal after Deletion " << endl;
+    binarySearchTree.inOrder();
+
+    binarySearchTree.insert(3);
+
+    cout <<  "\nInorder traversal after insertion of the new element 3 : " << endl;
+    binarySearchTree.inOrder();
+}
